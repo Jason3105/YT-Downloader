@@ -126,4 +126,6 @@ YT-Downloader/
 ![Home Page](Images/home.png)  
 ![Download Card](Images/download.png)  
 ![Why](Images/why.png)  
-![How](Images/how.png)  
+![How](Images/how.png) 
+![Frontend](Images/frontend.png)  
+![Backend](Images/backend.png) 
