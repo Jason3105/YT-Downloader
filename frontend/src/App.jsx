@@ -51,7 +51,7 @@ const PlayIcon = () => (
 );
 
 // Updated VideoAPI for real functionality
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = 'https://yt-downloader-backend-v5zz.onrender.com' || 'http://localhost:5000';
 
 const VideoAPI = {
   async getVideoInfo(url) {
