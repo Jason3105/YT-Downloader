@@ -124,8 +124,6 @@ YT-Downloader/
 
 ![Web Code](Images/code.png)
 ![Home Page](Images/home.png)  
-![Event Listings](Images/events.png)  
-![User Profile](Images/dashboard.png)  
-![College About Us](Images/college.png)  
-![MongoDB Database](Images/mongodb.png)  
-![MongoDB Atlas](Images/mongodb_atlas.png)  
+![Download Card](Images/download.png)  
+![Why](Images/why.png)  
+![How](Images/how.png)  
