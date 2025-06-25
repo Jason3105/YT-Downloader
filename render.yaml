@@ -16,7 +16,7 @@ services:
     name: yt-downloader-frontend
     env: static
     buildCommand: npm install && npm run build
-    staticPublishPath: frontend/build
+    staticPublishPath: frontend/dist
     # Set your frontend environment variable to point to the backend
     envVars:
       - key: REACT_APP_API_URL
