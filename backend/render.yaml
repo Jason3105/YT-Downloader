@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: yt-downloader-backend
+    env: docker
+    plan: free
+    repo: https://github.com/Jason3105/YT-Downloader
+    region: oregon
+    rootDir: backend
