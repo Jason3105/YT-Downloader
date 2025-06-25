@@ -32,8 +32,8 @@ It features a **React** frontend and a **Node.js / Express** backend with **FFmp
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="40"/> React  
   <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width="40"/> Node.js  
   <img src="https://www.vectorlogo.zone/logos/expressjs/expressjs-icon.svg" width="40"/> Express  
-  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Ffmpeg-logo.svg" width="40"/> FFmpeg  
-  <img src="https://raw.githubusercontent.com/tailwindlabs/branding/master/tailwind-logo/icon.svg" width="40"/> Tailwind CSS  
+  <img src="https://developer.asustor.com/uploadIcons/0020_999_1686722049_ffmpeg.png" width="40"/> FFmpeg  
+  <img src="https://w7.pngwing.com/pngs/293/485/png-transparent-tailwind-css-hd-logo.png" width="40"/> Tailwind CSS  
 </p>
 
 ---
