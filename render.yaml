@@ -10,14 +10,3 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-    # Add other environment variables as needed
-
-  - type: static
-    name: yt-downloader-frontend
-    env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: frontend/dist
-    # Set your frontend environment variable to point to the backend
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://yt-downloader-backend.onrender.com
