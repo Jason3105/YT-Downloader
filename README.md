@@ -59,7 +59,7 @@ cp .env.example .env          # edit if needed
 npm start                     # runs on http://localhost:5000
 
 # 3. Frontend setup (new terminal)
-cd ../frontend
+cd nfrontend
 npm install
 cp .env.example .env          # set REACT_APP_BACKEND_URL
 npm start                     # runs on http://localhost:3000
