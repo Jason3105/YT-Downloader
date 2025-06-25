@@ -106,6 +106,7 @@ YT-Downloader/
 - **YouTube Rate-Limiting (HTTP 429)**  
   YouTube aggressively throttles or blocks repeated requests from cloud-hosted IP addresses (Render, Vercel, Railway, etc.).  
   Implement **caching**, **exponential back-off/retries**, or an **IP-rotating proxy** to reduce 429 errors.
+  (Reach out to me if you've a solution).
 
 - **Server-Side FFmpeg Load**  
   FFmpeg runs entirely on your server. Each merge/transcode job can briefly spike **CPU** and **memory** usage.  
