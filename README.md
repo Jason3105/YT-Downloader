@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+# YT Downloader 🎬
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+YT Downloader is a full-stack web application that lets users download YouTube videos in multiple formats, including **MP4 (video + audio)** and **MP3 (audio-only)**.
+It features a **React** frontend and a **Node.js / Express** backend with **FFmpeg** integration for seamless audio/video merging.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+### 🔗 YouTube Download
+- Download videos in MP4 (highest available quality)
+- Download audio-only in MP3
+- Displays basic video details (title, duration, thumbnail)
+- Progress feedback and error handling
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ⚙️ Backend API
+- **POST `/api/video-info`** – fetch video metadata  
+- **GET `/api/download?type=mp4|mp3&url=…`** – stream merged file to client  
+- Built with `ytdl-core`, `ffmpeg-static`, and `fluent-ffmpeg`
+- Graceful handling of rate limits (HTTP 429)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🎯 Responsive Frontend
+- React + Tailwind CSS for a clean, mobile-friendly UI
+- Environment-based API URL (`REACT_APP_BACKEND_URL`)
+- One-click download workflow
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Technologies Used
 
-### `npm run build`
+<p align="left">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="40"/> React  
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width="40"/> Node.js  
+  <img src="https://www.vectorlogo.zone/logos/expressjs/expressjs-icon.svg" width="40"/> Express  
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Ffmpeg-logo.svg" width="40"/> FFmpeg  
+  <img src="https://raw.githubusercontent.com/tailwindlabs/branding/master/tailwind-logo/icon.svg" width="40"/> Tailwind CSS  
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🏁 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+* Node.js (v14 +)  
+* npm (v6 +)  
+* FFmpeg (bundled via `ffmpeg-static`, no local install required)
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+# 1. Clone repo
+git clone https://github.com/yourusername/yt-downloader.git
+cd yt-downloader
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 2. Backend setup
+cd backend
+npm install
+cp .env.example .env          # edit if needed
+npm start                     # runs on http://localhost:5000
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 3. Frontend setup (new terminal)
+cd ../frontend
+npm install
+cp .env.example .env          # set REACT_APP_BACKEND_URL
+npm start                     # runs on http://localhost:3000
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 Project Structure
 
-## Learn More
+<pre>
+YT-Downloader/
+├── backend/                        # Backend code (Express server)
+│   ├── downloads/                  # Temporary files (MP3/MP4)
+│   ├── node_modules/               # Backend dependencies
+│   ├── Dockerfile                  # Docker config for Render
+│   ├── package-lock.json           # Lock file for backend
+│   ├── package.json                # Backend package config
+│   ├── render.yaml                 # Render deployment file
+│   └── server.js                   # Entry point for Express server
+│
+├── nfrontend/                      # Frontend (React + Tailwind CSS)
+│   ├── node_modules/               # Frontend dependencies
+│   ├── public/                     # Static public files (index.html, etc.)
+│   ├── src/                        # Frontend source code
+│   │   ├── App.css                 # App styling
+│   │   ├── App.js                  # Root component
+│   │   ├── App.test.js             # App tests
+│   │   ├── index.css               # Tailwind and global styles
+│   │   ├── index.js                # React DOM entry point
+│   │   ├── logo.svg                # Logo asset
+│   │   ├── reportWebVitals.js      # Performance monitoring
+│   │   └── setupTests.js           # Testing setup
+│   ├── .env                        # Frontend environment variables
+│   ├── .gitignore                  # Git ignore config
+│   ├── package-lock.json           # Lock file for frontend
+│   ├── package.json                # Frontend package config
+│   ├── postcss.config.js           # Tailwind/PostCSS setup
+│   ├── tailwind.config.js          # Tailwind configuration
+│   └── README.md                   # (Optional) frontend-specific README
+│
+├── README.md                       # 📘 Main project documentation
+</pre>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛡️ Notes & Limitations  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **YouTube Rate-Limiting (HTTP 429)**  
+  YouTube aggressively throttles or blocks repeated requests from cloud-hosted IP addresses (Render, Vercel, Railway, etc.).  
+  Implement **caching**, **exponential back-off/retries**, or an **IP-rotating proxy** to reduce 429 errors.
 
-### Code Splitting
+- **Server-Side FFmpeg Load**  
+  FFmpeg runs entirely on your server. Each merge/transcode job can briefly spike **CPU** and **memory** usage.  
+  On free-tier hosts (e.g., Render free instance), heavy jobs may be killed or the service may restart.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Cold-Start Delays / Timeouts**  
+  Free tiers often “sleep” after inactivity. The first request has to wake the server, and long-running FFmpeg
+  processes risk hitting the platform’s request-timeout (typically 30–60 s).
 
-### Analyzing the Bundle Size
+- **Terms of Service**  
+  Downloading YouTube content may violate YouTube’s ToS. Ensure end-users have the right to download the material
+  and consider adding a usage disclaimer.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## 📸 Screenshots
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Web Code](Images/code.png)
+![Home Page](Images/home.png)  
+![Event Listings](Images/events.png)  
+![User Profile](Images/dashboard.png)  
+![College About Us](Images/college.png)  
+![MongoDB Database](Images/mongodb.png)  
+![MongoDB Atlas](Images/mongodb_atlas.png)  
